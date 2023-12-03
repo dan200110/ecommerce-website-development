@@ -10,14 +10,17 @@ app.use(helmet())
 app.use(compression)
 
 // init db
-// require('./dbs/init.mongodb.lv0')
+require('./dbs/init.mongodb')
+// const {checkOverload} = require('./helpers/check.connect')
+// checkOverload()
+
 
 // init routes
 app.get('/', (req, res, next) => {
   const strCompress = 'Hello World'
   return res.status(200).json({
-    message: 'Success',
-    metadata: strCompress.repeat(10000)
+    message: 'Successful',
+    // metadata: strCompress.repeat(10000)
   })
 })
 

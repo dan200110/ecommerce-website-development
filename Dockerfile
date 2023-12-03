@@ -1,14 +1,15 @@
-FROM node:19-alpine
+FROM node:latest
+
+EXPOSE 3000
 
 WORKDIR /app
 
-COPY . .
+RUN npm install -g npm@latest
+
+COPY package.json package-lock.json ./
 
 RUN npm install
 
-# Development
-CMD ["npm", "start"]
+COPY . .
 
-# Production
-# RUN npm install -g pm2
-# CMD ["pm2-runtime", "ecosystem.config.js", "--env", "production"]
+CMD ["npm", "start"]
