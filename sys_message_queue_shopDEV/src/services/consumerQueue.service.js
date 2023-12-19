@@ -28,6 +28,33 @@ const messageService = {
       //     channel.ack(msg)
       //   })
       // }, timeExpired)
+
+      // 2. Logic
+
+      channel.consume(notiQueue, msg => {
+        try {
+          const numberTest = Math.random()
+          console.log({ numberTest })
+
+          if (numberTest < 0.8) {
+            throw new Error('Send notification failed: Not fix')
+          }
+
+          console.log(
+            `Send notifcationQueue sucessfully processed:`,
+            msg.content.toString()
+          )
+
+          channel.ack(msg)
+        } catch (error) {
+          console.log('Send notification error', error);
+          channel.nack(msg, false, false)
+          /*
+            nack: negative acknowledgement
+            
+          */
+        }
+      })
     } catch (error) {
       console.log(error)
     }
